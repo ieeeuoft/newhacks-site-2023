@@ -304,12 +304,13 @@ LOGGING = {
 HACKATHON_NAME = "NewHacks"
 DEFAULT_FROM_EMAIL = "hello@newhacks.ca"
 CONTACT_EMAIL = DEFAULT_FROM_EMAIL
+HSS_ADMIN_EMAIL = "hardware@newhacks.ca"
 
-REGISTRATION_OPEN_DATE = datetime(2022, 9, 5, 0, 0, 0, tzinfo=TZ_INFO)
-REGISTRATION_CLOSE_DATE = datetime(2022, 10, 29, 23, 59, 0, tzinfo=TZ_INFO)
-EVENT_START_DATE = datetime(2022, 11, 5, 9, 0, 0, tzinfo=TZ_INFO)
-EVENT_END_DATE = datetime(2022, 11, 6, 17, 0, 0, tzinfo=TZ_INFO)
-HARDWARE_SIGN_OUT_START_DATE = datetime(2022, 10, 28, 23, 59, 0, tzinfo=TZ_INFO)
+REGISTRATION_OPEN_DATE = datetime(2023, 9, 5, 0, 0, 0, tzinfo=TZ_INFO)
+REGISTRATION_CLOSE_DATE = datetime(2023, 10, 29, 23, 59, 0, tzinfo=TZ_INFO)
+EVENT_START_DATE = datetime(2023, 11, 5, 9, 0, 0, tzinfo=TZ_INFO)
+EVENT_END_DATE = datetime(2023, 11, 6, 17, 0, 0, tzinfo=TZ_INFO)
+HARDWARE_SIGN_OUT_START_DATE = datetime(2023, 10, 28, 23, 59, 0, tzinfo=TZ_INFO)
 HARDWARE_SIGN_OUT_END_DATE = EVENT_END_DATE
 
 # Registration user requirements
@@ -317,9 +318,10 @@ MINIMUM_AGE = 18
 
 # Registration settings
 ACCOUNT_ACTIVATION_DAYS = 7
+RSVP_DAYS = 0
 
 # Team requirements
-MIN_MEMBERS = 3
+MIN_MEMBERS = 2
 MAX_MEMBERS = 4
 
 # The time at which waitlisted people will start being accepted into
@@ -337,6 +339,40 @@ PARTICIPANT_PACKAGE_LINK = "https://docs.google.com/document/d/1JvPlvxwMze9dqjv_
 # Chat room name is such as the following: Slack, Discord
 CHAT_ROOM = ("Discord", "https://discord.gg/BQg4Upq3pm")
 
+# Enable/Disable certain Features
+TEAMS = True
+RSVP = True
+
 # HSS Testing
 TEST_USER_GROUP = "HSS Test Users"
-HSS_ADMIN_EMAIL = "hardware@newhacks.ca"
+
+# sign in times must be between EVENT_START_DATE and EVENT_END_DATE and in chronological order
+# the number of sign in times MUST MATCH the number of columns in UserActivityTable
+# TODO: modify sign in times when available
+SIGN_IN_TIMES = [
+    {
+        "name": "sign_in",
+        "description": "Hackathon Sign In",
+        "time": datetime(2023, 2, 18, 9, 50, 0, tzinfo=TZ_INFO),  # Oct 10th @ 11am
+    },
+    {
+        "name": "lunch1",
+        "description": "Lunch Day 1",
+        "time": datetime(2023, 2, 18, 14, 0, 0, tzinfo=TZ_INFO),  # Oct 10th @ 2pm
+    },
+    {
+        "name": "dinner1",
+        "description": "Dinner Day 1",
+        "time": datetime(2023, 2, 18, 19, 0, 0, tzinfo=TZ_INFO),  # Oct 10th @ 6pm
+    },
+    {
+        "name": "breakfast2",
+        "description": "Breakfast Day 2",
+        "time": datetime(2023, 2, 19, 9, 0, 0, tzinfo=TZ_INFO),  # Oct 11th @ 9am
+    },
+    {
+        "name": "lunch2",
+        "description": "Lunch Day 2",
+        "time": datetime(2023, 2, 19, 13, 0, 0, tzinfo=TZ_INFO),  # Oct 11th @ 12pm
+    },
+]
