@@ -44,9 +44,9 @@ if DEBUG:
     HSS_URL = "http://localhost:3000/"
 else:
     # NOTE: If you aren't ieee uoft, put your websites here
-    ALLOWED_HOSTS = ["ieee.utoronto.ca"]
+    ALLOWED_HOSTS = ["newhacks.ca"]
     CORS_ORIGIN_REGEX_WHITELIST = [
-        r"^https://ieee\.utoronto.ca:?\d*$",
+        r"^https://newhacks.ca:?\d*$",
     ]
     HSS_URL = "https://hardware.newhacks.ca/"
 
