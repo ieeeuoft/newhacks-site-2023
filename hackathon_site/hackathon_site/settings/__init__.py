@@ -43,12 +43,24 @@ if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
     HSS_URL = "http://localhost:3000/"
 else:
-    # NOTE: If you aren't ieee uoft, put your websites here
-    ALLOWED_HOSTS = ["newhacks.ca"]
-    CORS_ORIGIN_REGEX_WHITELIST = [
-        r"^https://newhacks.ca:?\d*$",
+    ALLOWED_HOSTS = [
+        "newhacks.ca",
+        "www.newhacks.ca",
+        "hardware.newhacks.ca",
+        "www.hardware.newhacks.ca",
     ]
     HSS_URL = "https://hardware.newhacks.ca/"
+    CORS_ORIGIN_REGEX_WHITELIST = [
+        r"^https://(?:www\.)?newhacks\.ca",
+        r"^https://(?:www\.)?\w+\.newhacks\.ca",
+    ]
+    CSRF_COOKIE_DOMAIN = ".newhacks.ca"
+    CSRF_TRUSTED_ORIGINS = [
+        "newhacks.ca",
+        "www.newhacks.ca",
+        "hardware.newhacks.ca",
+        "www.hardware.newhacks.ca",
+    ]
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -289,27 +301,25 @@ LOGGING = {
 }
 
 # Event specific settings
-HACKATHON_NAME = "CoolHacks"
-DEFAULT_FROM_EMAIL = "webmaster@localhost"
+HACKATHON_NAME = "NewHacks"
+DEFAULT_FROM_EMAIL = "hello@newhacks.ca"
 CONTACT_EMAIL = DEFAULT_FROM_EMAIL
-HSS_ADMIN_EMAIL = "hardware@newhacks.ca"
 
-REGISTRATION_OPEN_DATE = datetime(2020, 9, 1, tzinfo=TZ_INFO)
-REGISTRATION_CLOSE_DATE = datetime(2023, 9, 30, tzinfo=TZ_INFO)
-EVENT_START_DATE = datetime(2023, 10, 10, 10, 0, 0, tzinfo=TZ_INFO)
-EVENT_END_DATE = datetime(2023, 10, 11, 17, 0, 0, tzinfo=TZ_INFO)
-HARDWARE_SIGN_OUT_START_DATE = datetime(2020, 9, 1, tzinfo=TZ_INFO)
-HARDWARE_SIGN_OUT_END_DATE = datetime(2023, 9, 30, tzinfo=TZ_INFO)
+REGISTRATION_OPEN_DATE = datetime(2022, 9, 5, 0, 0, 0, tzinfo=TZ_INFO)
+REGISTRATION_CLOSE_DATE = datetime(2022, 10, 29, 23, 59, 0, tzinfo=TZ_INFO)
+EVENT_START_DATE = datetime(2022, 11, 5, 9, 0, 0, tzinfo=TZ_INFO)
+EVENT_END_DATE = datetime(2022, 11, 6, 17, 0, 0, tzinfo=TZ_INFO)
+HARDWARE_SIGN_OUT_START_DATE = datetime(2022, 10, 28, 23, 59, 0, tzinfo=TZ_INFO)
+HARDWARE_SIGN_OUT_END_DATE = EVENT_END_DATE
 
 # Registration user requirements
-MINIMUM_AGE = 14
+MINIMUM_AGE = 18
 
 # Registration settings
 ACCOUNT_ACTIVATION_DAYS = 7
-RSVP_DAYS = 7
 
 # Team requirements
-MIN_MEMBERS = 2
+MIN_MEMBERS = 3
 MAX_MEMBERS = 4
 
 # The time at which waitlisted people will start being accepted into
@@ -321,15 +331,12 @@ WAITLISTED_ACCEPTANCE_START_TIME = EVENT_START_DATE + timedelta(hours=1)
 FINAL_REVIEW_RESPONSE_DATE = REGISTRATION_CLOSE_DATE + timedelta(days=7)
 
 # Links
-PARTICIPANT_PACKAGE_LINK = "#"
+PARTICIPANT_PACKAGE_LINK = "https://docs.google.com/document/d/1JvPlvxwMze9dqjv_5PIUVu8bHTiEZz8AtviHRMEsWQQ/edit?usp=sharing"
 
 # Note this is in the form (chat_room_name, chat_room_link)
 # Chat room name is such as the following: Slack, Discord
-CHAT_ROOM = ("Slack", "https://slack.com")
-
-# Enable/Disable certain Features
-TEAMS = True
-RSVP = True
+CHAT_ROOM = ("Discord", "https://discord.gg/BQg4Upq3pm")
 
 # HSS Testing
 TEST_USER_GROUP = "HSS Test Users"
+HSS_ADMIN_EMAIL = "hardware@newhacks.ca"
