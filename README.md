@@ -6,6 +6,7 @@ A website template for hackathons run by [IEEE University of Toronto Student Bra
 #### Directors
 - Luke Cheseldine
 - Mustafa Abdulrahman (PM)
+- Thomas Lin
 
 #### Associates
 - Karandeep Lubana
