@@ -106,6 +106,8 @@ jobs:
           source: "hackathon_site/static/"
           target: "/usr/src/${{ env.IMAGE_NAME }}"
           strip_components: 1
+        env:
+          SCP_OPTIONS: -v
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
