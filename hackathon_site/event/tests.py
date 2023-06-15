@@ -869,7 +869,7 @@ class CreateProfileSerializerTestCase(TestCase):
         self.team = RegistrationTeam.objects.create()
 
         application_data = {
-            "birthday": date(2000, 1, 1),
+            "age": 19,
             "gender": "no-answer",
             "ethnicity": "no-answer",
             "phone_number": "1234567890",

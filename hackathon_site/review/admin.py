@@ -126,7 +126,7 @@ class ApplicationInline(admin.TabularInline):
         "what_technical_experience",
         "what_past_experience",
         "get_resume_link",
-        "birthday",
+        "age",
         "get_reviewer_name",
         "get_decision_sent_date",
     )

@@ -120,7 +120,7 @@ class ApplicationForm(forms.ModelForm):
     class Meta:
         model = Application
         fields = [
-            "birthday",
+            "age",
             "pronouns",
             "ethnicity",
             "phone_number",
@@ -143,7 +143,6 @@ class ApplicationForm(forms.ModelForm):
             "resume_sharing",
         ]
         widgets = {
-            "birthday": forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
             "school": forms.Select(
                 # Choices will be populated by select2
                 attrs={"class": "select2-school-select"},
@@ -195,17 +194,14 @@ class ApplicationForm(forms.ModelForm):
             )
         return cleaned_data
 
-    def clean_birthday(self):
-        latest_birthday = (
-            settings.EVENT_START_DATE - relativedelta(years=settings.MINIMUM_AGE)
-        ).date()
-        user_birthday = self.cleaned_data["birthday"]
-        if user_birthday > latest_birthday:
+    def clean_age(self):
+        user_age = self.cleaned_data["age"]
+        if user_age < settings.MINIMUM_AGE:
             raise forms.ValidationError(
                 _(f"You must be {settings.MINIMUM_AGE} to participate."),
                 code="user_is_too_young_to_participate",
             )
-        return self.cleaned_data["birthday"]
+        return user_age
 
     def save(self, commit=True):
         self.instance = super().save(commit=False)

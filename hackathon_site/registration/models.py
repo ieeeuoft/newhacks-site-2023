@@ -56,13 +56,23 @@ class Application(models.Model):
         ("other", "Other"),
     ]
 
+    AGE_CHOICES = [
+        (None, ""),
+        (18, "18"),
+        (19, "19"),
+        (20, "20"),
+        (21, "21"),
+        (22, "22"),
+        (23, "22+"),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
     team = models.ForeignKey(
         Team, related_name="applications", on_delete=models.CASCADE, null=False
     )
 
     # User Submitted Fields
-    birthday = models.DateField(null=False)
+    age = models.PositiveIntegerField(choices=AGE_CHOICES, null=False)
     pronouns = models.CharField(
         max_length=50, choices=PRONOUN_CHOICES, null=False, default=""
     )

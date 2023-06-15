@@ -171,7 +171,7 @@ class ApplicationViewTestCase(SetupUserMixin, TestCase):
         self.view = reverse("registration:application")
 
         self.data = {
-            "birthday": date(2000, 1, 1),
+            "age": 21,
             "pronouns": "no-answer",
             "ethnicity": "no-answer",
             "phone_number": "1234567890",
@@ -197,7 +197,7 @@ class ApplicationViewTestCase(SetupUserMixin, TestCase):
         self.team = Team.objects.create()
 
         self.post_data = self.data.copy()
-        self.post_data["birthday"] = "2000-01-01"  # The format used by the widget
+        self.post_data["age"] = "20"  # The format used by the widget
         self.post_data["resume"] = SimpleUploadedFile(
             "my_resume.pdf", b"some content", content_type="application/pdf"
         )

@@ -84,7 +84,7 @@ class ApplicationFormTestCase(SetupUserMixin, TestCase):
     def setUp(self):
         super().setUp()
         self.data = {
-            "birthday": date(2000, 1, 1),
+            "age": 21,
             "pronouns": "no-answer",
             "ethnicity": "no-answer",
             "phone_number": "1234567890",
@@ -284,23 +284,16 @@ class ApplicationFormTestCase(SetupUserMixin, TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn("Registration has closed.", form.non_field_errors())
 
-    def test_invalid_birthday(self):
+    def test_invalid_age(self):
         data = self.data.copy()
-        data["birthday"] = (
-            settings.EVENT_START_DATE
-            - relativedelta(years=settings.MINIMUM_AGE - 1, days=360)
-        ).date()
+        data["age"] = settings.MINIMUM_AGE - 1
         form = self._build_form(data=data)
         self.assertFalse(form.is_valid())
         self.assertIn(
-            f"You must be {settings.MINIMUM_AGE} to participate.",
-            form.errors["birthday"],
+            f"You must be {settings.MINIMUM_AGE} to participate.", form.errors["age"],
         )
 
-        data["birthday"] = (
-            settings.EVENT_START_DATE
-            - relativedelta(years=settings.MINIMUM_AGE, days=1)
-        ).date()
+        data["age"] = settings.MINIMUM_AGE
         form = self._build_form(data=data)
         self.assertTrue(form.is_valid())
 
