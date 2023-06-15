@@ -109,7 +109,7 @@ INSTALLED_APPS = [
     "event",
     "hardware",
     "review",
-    "django_extensions"
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
