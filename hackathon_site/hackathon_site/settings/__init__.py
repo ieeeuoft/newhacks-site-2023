@@ -340,7 +340,6 @@ CHAT_ROOM = ("Discord", "https://discord.gg/BQg4Upq3pm")
 
 # Enable/Disable certain Features
 TEAMS = True
-RSVP = True
 
 # HSS Testing
 TEST_USER_GROUP = "HSS Test Users"
