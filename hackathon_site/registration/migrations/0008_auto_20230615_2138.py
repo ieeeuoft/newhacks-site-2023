@@ -7,28 +7,48 @@ import registration.validators
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('registration', '0007_alter_application_age'),
+        ("registration", "0007_alter_application_age"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='application',
-            name='resume',
-            field=models.FileField(null=True, upload_to='applications/resumes/', validators=[registration.validators.UploadedFileValidator(content_types=['application/pdf'], max_upload_size=20971520)]),
+            model_name="application",
+            name="resume",
+            field=models.FileField(
+                null=True,
+                upload_to="applications/resumes/",
+                validators=[
+                    registration.validators.UploadedFileValidator(
+                        content_types=["application/pdf"], max_upload_size=20971520
+                    )
+                ],
+            ),
         ),
         migrations.AlterField(
-            model_name='application',
-            name='what_past_experience',
-            field=models.TextField(help_text='If you’ve been to a hackathon, briefly tell us your experience. If not, describe what you expect to see and experience.', max_length=1000, null=True),
+            model_name="application",
+            name="what_past_experience",
+            field=models.TextField(
+                help_text="If you’ve been to a hackathon, briefly tell us your experience. If not, describe what you expect to see and experience.",
+                max_length=1000,
+                null=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='application',
-            name='what_technical_experience',
-            field=models.TextField(help_text='What is your technical experience with software?', max_length=1000, null=True),
+            model_name="application",
+            name="what_technical_experience",
+            field=models.TextField(
+                help_text="What is your technical experience with software?",
+                max_length=1000,
+                null=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='application',
-            name='why_participate',
-            field=models.TextField(help_text='Why do you want to participate in NewHacks?', max_length=1000, null=True),
+            model_name="application",
+            name="why_participate",
+            field=models.TextField(
+                help_text="Why do you want to participate in NewHacks?",
+                max_length=1000,
+                null=True,
+            ),
         ),
     ]
