@@ -62,6 +62,14 @@ else:
         "www.hardware.newhacks.ca",
     ]
 
+    EMAIL_HOST = os.environ.get("EMAIL_HOST", None)
+    EMAIL_PORT = os.environ.get("EMAIL_PORT", None)
+    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", None)
+    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", None)
+    EMAIL_USE_SSL = True
+    DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_FROM_ADDRESS", "hello@newhacks.ca")
+    CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOW_CREDENTIALS = True
 
 RECAPTCHA_DOMAIN = "www.recaptcha.net"
