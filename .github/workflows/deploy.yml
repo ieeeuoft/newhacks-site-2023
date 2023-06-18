@@ -80,7 +80,7 @@ jobs:
           yarn run build
       - name: Set environment variables in .env
         run: |
-          echo 'DEBUG=0' >> .env
+          echo 'DEBUG=1' >> .env
           echo 'SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}' >> .env
           echo 'DB_NAME=${{ secrets.DB_NAME }}' >> .env
           echo 'DB_USER=${{ secrets.DB_USER }}' >> .env
