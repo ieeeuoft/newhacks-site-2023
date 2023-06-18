@@ -49,6 +49,7 @@ else:
         "hardware.newhacks.ca",
         "www.hardware.newhacks.ca",
     ]
+    INTERNAL_IPS = ["127.0.0.1", "159.203.31.138"]
     HSS_URL = "https://hardware.newhacks.ca/"
     CORS_ORIGIN_REGEX_WHITELIST = [
         r"^https://(?:www\.)?newhacks\.ca",
@@ -130,9 +131,10 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-if DEBUG:
-    INSTALLED_APPS += ["debug_toolbar"]
-    MIDDLEWARE = ["debug_toolbar.middleware.DebugToolbarMiddleware"] + MIDDLEWARE
+
+# if DEBUG:
+INSTALLED_APPS += ["debug_toolbar"]
+MIDDLEWARE = ["debug_toolbar.middleware.DebugToolbarMiddleware"] + MIDDLEWARE
 
 ROOT_URLCONF = "hackathon_site.urls"
 

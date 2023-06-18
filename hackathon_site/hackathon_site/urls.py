@@ -76,3 +76,5 @@ if settings.DEBUG:
 
 # Catchall for event urls at the end of the url routes
 urlpatterns += [path("", include("event.urls", namespace="event"))]
+
+urlpatterns += [path("__debug__/", include(debug_toolbar.urls))]
