@@ -35,7 +35,7 @@ DEBUG = bool(int(os.environ.get("DEBUG", 0)))
 IN_TESTING = False  # Overwritten by hackathon_site.settings.ci
 
 if DEBUG:
-    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1", "newhacks.ca"]
     INTERNAL_IPS = ["localhost", "127.0.0.1"]
     CORS_ORIGIN_REGEX_WHITELIST = [
         r"^https?://localhost:?\d*$",
