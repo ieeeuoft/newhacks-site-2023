@@ -277,8 +277,10 @@ class CurrentTeamOrderListView(generics.ListAPIView):
 
 
 class TeamDetailView(
-    mixins.RetrieveModelMixin, mixins.UpdateModelMixin,
- mixins.DestroyModelMixin, generics.GenericAPIView
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    generics.GenericAPIView,
 ):
     serializer_class = TeamSerializer
     permission_classes = [FullDjangoModelPermissions]
@@ -300,7 +302,7 @@ class TeamDetailView(
             )
 
         return self.destroy(request, *args, **kwargs)
-    
+
     def patch(self, request, *args, **kwargs):
         try:
             data = request.data
@@ -315,7 +317,6 @@ class TeamDetailView(
             return self.partial_update(request, *args, **kwargs)
         except ValueError as e:
             return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
-
 
 
 class TeamOrderDetailView(mixins.UpdateModelMixin, generics.GenericAPIView):

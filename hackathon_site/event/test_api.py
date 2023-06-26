@@ -956,7 +956,6 @@ class EventTeamDetailViewTestCase(SetupUserMixin, APITestCase):
         self.assertEqual(response.data, "project_description must be a string")
 
 
-
 class TeamOrderDetailViewTestCase(SetupUserMixin, APITestCase):
     def setUp(self):
         super().setUp()
