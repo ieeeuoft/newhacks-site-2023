@@ -117,7 +117,8 @@ django.jQuery(document).ready(async () => {
                 },
                 title: {
                     display: true,
-                    text: "Number of Completed Applications for our Hackathons Over Time",
+                    text:
+                        "Number of Completed Applications for our Hackathons Over Time",
                     color: "#D7DBDD",
                     font: {
                         size: 18,
