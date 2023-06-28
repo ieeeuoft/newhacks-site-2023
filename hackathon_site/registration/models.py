@@ -50,10 +50,20 @@ class Application(models.Model):
 
     STUDY_LEVEL_CHOICES = [
         (None, ""),
-        ("highschool", "High School"),
-        ("undergraduate", "Undergraduate"),
-        ("gradschool", "Graduate School"),
+        ("less-than-secondary", "Less than Secondary / High School"),
+        ("secondary", "Secondary / High School"),
+        (
+            "undergraduate-2-year",
+            "Undergraduate University (2 year - community college or similar)",
+        ),
+        ("undergraduate-3-year", "Undergraduate University (3+ year)"),
+        ("graduate", "Graduate University (Masters, Professional, Doctoral, etc)"),
+        ("code-school", "Code School / Bootcamp"),
+        ("vocational", "Other Vocational / Trade Program or Apprenticeship"),
+        ("post-doctorate", "Post Doctorate"),
         ("other", "Other"),
+        ("not-a-student", "I’m not currently a student"),
+        ("no-answer", "Prefer not to answer"),
     ]
 
     AGE_CHOICES = [
@@ -91,7 +101,10 @@ class Application(models.Model):
     country = models.CharField(max_length=255, null=False)
     school = models.CharField(max_length=255, null=False,)
     study_level = models.CharField(
-        max_length=50, choices=STUDY_LEVEL_CHOICES, null=False
+        max_length=50,
+        help_text="Level of Study",
+        choices=STUDY_LEVEL_CHOICES,
+        null=False,
     )
     graduation_year = models.IntegerField(
         null=False,
@@ -161,8 +174,7 @@ class Application(models.Model):
     )
 
     email_agree = models.BooleanField(
-        help_text="I authorize MLH to send me pre- and post-event informational"
-        " emails, which contain free credit and opportunities from their partners.",
+        help_text="I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements.",
         blank=True,
         null=True,
         default=False,
