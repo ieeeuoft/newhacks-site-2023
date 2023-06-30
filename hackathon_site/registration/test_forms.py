@@ -284,6 +284,7 @@ class ApplicationFormTestCase(SetupUserMixin, TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn("Registration has closed.", form.non_field_errors())
 
+
 class JoinTeamFormTestCase(SetupUserMixin, TestCase):
     def setUp(self):
         super().setUp()
