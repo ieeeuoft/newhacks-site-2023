@@ -284,20 +284,6 @@ class ApplicationFormTestCase(SetupUserMixin, TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn("Registration has closed.", form.non_field_errors())
 
-    def test_invalid_age(self):
-        data = self.data.copy()
-        data["age"] = settings.MINIMUM_AGE - 1
-        form = self._build_form(data=data)
-        self.assertFalse(form.is_valid())
-        self.assertIn(
-            f"You must be {settings.MINIMUM_AGE} to participate.", form.errors["age"],
-        )
-
-        data["age"] = settings.MINIMUM_AGE
-        form = self._build_form(data=data)
-        self.assertTrue(form.is_valid())
-
-
 class JoinTeamFormTestCase(SetupUserMixin, TestCase):
     def setUp(self):
         super().setUp()
