@@ -383,6 +383,7 @@ export const PendingTables = () => {
                         id={`order${pendingOrder.id}`}
                         key={pendingOrder.id}
                         data-testid={`pending-order-table-${pendingOrder.id}`}
+                        data-updated-time={`pending-order-time-${pendingOrder.updatedTime}`}
                     >
                         <GeneralPendingTable {...{ pendingOrder }} />
                         {pendingOrder.status !== "Ready for Pickup" && (
