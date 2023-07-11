@@ -7,7 +7,7 @@ import { within } from "testing/utils";
 import { mockPendingOrders } from "testing/mockData";
 
 describe("Admin Dashboard Page", () => {
-  let store: RootStore;
+    let store: RootStore;
 
     beforeEach(() => {
         store = makeStoreWithEntities({
