@@ -14,7 +14,7 @@ const OrderCard = ({ teamCode, orderQuantity, time, id, status }: OrderProps) =>
     const date = new Date(time);
     const month = date.toLocaleString("default", { month: "short" });
     const day = date.getDate();
-    const hoursAndMinutes = 
+    const hoursAndMinutes =
         date.getHours() +
         ":" +
         ((date.getMinutes() < 10 ? "0" : "") + date.getMinutes());
