@@ -219,13 +219,13 @@ describe("<CheckedOutTables />", () => {
                 checkedOutOrders: mockCheckedOutOrdersInTable,
             },
         });
-        const {getByText, queryByText} = render(<CheckedOutTables/>, {store});
+        const { getByText, queryByText } = render(<CheckedOutTables />, { store });
         const button = getByText(/hide all/i);
 
         fireEvent.click(button);
 
         expect(getByText(/show all/i)).toBeInTheDocument();
-        mockCheckedOutOrders.map(({id}) => {
+        mockCheckedOutOrders.map(({ id }) => {
             expect(queryByText(`Order #${id}`)).not.toBeInTheDocument();
         });
     });
