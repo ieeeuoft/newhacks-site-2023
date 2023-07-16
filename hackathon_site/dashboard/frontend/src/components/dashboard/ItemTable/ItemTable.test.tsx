@@ -137,7 +137,6 @@ describe("<PendingTables />", () => {
         expect(cancelOrderModalMessage[0]).not.toBeInTheDocument();
     });
 
-
     it("Displays pending orders from oldest to newest", () => {
         const store = makeStoreWithEntities({
             pendingOrders: mockPendingOrdersInTable,
@@ -231,28 +230,28 @@ describe("<CheckedOutTables />", () => {
         });
 
         it("Displays checked out orders from most recent to oldest order", async () => {
-        const store = makeStoreWithEntities({
-            orderState: {
-                checkedOutOrders: mockCheckedOutOrdersInTable,
-            },
-        });
-        const { getAllByTestId } = render(<CheckedOutTables />, { store });
-        const orderElements = getAllByTestId(/checked-out-order-table-\d+/);
-        const orders = orderElements.map((element) => {
-            const updatedTime = element.getAttribute("data-updated-time");
-            return { updatedTime };
-        });
-        let isSorted = true;
-        for (let i = 0; i < orders.length - 1; i++) {
-            const currentDate = orders[i];
-            const previousDate = orders[i + 1];
+            const store = makeStoreWithEntities({
+                orderState: {
+                    checkedOutOrders: mockCheckedOutOrdersInTable,
+                },
+            });
+            const { getAllByTestId } = render(<CheckedOutTables />, { store });
+            const orderElements = getAllByTestId(/checked-out-order-table-\d+/);
+            const orders = orderElements.map((element) => {
+                const updatedTime = element.getAttribute("data-updated-time");
+                return { updatedTime };
+            });
+            let isSorted = true;
+            for (let i = 0; i < orders.length - 1; i++) {
+                const currentDate = orders[i];
+                const previousDate = orders[i + 1];
 
-            if (currentDate < previousDate) {
-                isSorted = false;
-                break;
+                if (currentDate < previousDate) {
+                    isSorted = false;
+                    break;
+                }
             }
-        }
-        expect(isSorted).toBe(true);
+            expect(isSorted).toBe(true);
         });
     });
 
@@ -362,7 +361,7 @@ describe("<ReturnedTable />", () => {
         });
     });
 
-     it("Displays the returned orders from newest to oldest", () => {
+    it("Displays the returned orders from newest to oldest", () => {
         const store = makeStoreWithReturnedOrders(mockReturnedOrdersInTable, false);
         const { container, getAllByTestId, getByText } = render(<ReturnedTable />, {
             store,

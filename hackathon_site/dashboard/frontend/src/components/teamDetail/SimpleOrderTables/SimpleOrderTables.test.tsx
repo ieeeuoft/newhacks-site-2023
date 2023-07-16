@@ -174,7 +174,7 @@ describe("<SimplePendingOrderFulfillmentTable />", () => {
         }
     });
 
-     it("Displays pending orders from oldest to newest on the admin side", () => {
+    it("Displays pending orders from oldest to newest on the admin side", () => {
         const { getAllByTestId } = render(<SimplePendingOrderFulfillmentTable />, {
             store,
         });
