@@ -219,40 +219,39 @@ describe("<CheckedOutTables />", () => {
                 checkedOutOrders: mockCheckedOutOrdersInTable,
             },
         });
-        const { getByText, queryByText } = render(<CheckedOutTables />, { store });
+        const {getByText, queryByText} = render(<CheckedOutTables/>, {store});
         const button = getByText(/hide all/i);
 
         fireEvent.click(button);
 
         expect(getByText(/show all/i)).toBeInTheDocument();
-        mockCheckedOutOrders.map(({ id }) => {
+        mockCheckedOutOrders.map(({id}) => {
             expect(queryByText(`Order #${id}`)).not.toBeInTheDocument();
         });
-
-        it("Displays checked out orders from most recent to oldest order", async () => {
-            const store = makeStoreWithEntities({
-                orderState: {
-                    checkedOutOrders: mockCheckedOutOrdersInTable,
-                },
-            });
-            const { getAllByTestId } = render(<CheckedOutTables />, { store });
-            const orderElements = getAllByTestId(/checked-out-order-table-\d+/);
-            const orders = orderElements.map((element) => {
-                const updatedTime = element.getAttribute("data-updated-time");
-                return { updatedTime };
-            });
-            let isSorted = true;
-            for (let i = 0; i < orders.length - 1; i++) {
-                const currentDate = orders[i];
-                const previousDate = orders[i + 1];
-
-                if (currentDate < previousDate) {
-                    isSorted = false;
-                    break;
-                }
-            }
-            expect(isSorted).toBe(true);
+    });
+    it("Displays checked out orders from most recent to oldest order", async () => {
+        const store = makeStoreWithEntities({
+            orderState: {
+                checkedOutOrders: mockCheckedOutOrdersInTable,
+            },
         });
+        const { getAllByTestId } = render(<CheckedOutTables />, { store });
+        const orderElements = getAllByTestId(/checked-out-order-table-\d+/);
+        const orders = orderElements.map((element) => {
+            const updatedTime = element.getAttribute("data-updated-time");
+            return { updatedTime };
+        });
+        let isSorted = true;
+        for (let i = 0; i < orders.length - 1; i++) {
+            const currentDate = orders[i];
+            const previousDate = orders[i + 1];
+
+            if (currentDate < previousDate) {
+                isSorted = false;
+                break;
+            }
+        }
+        expect(isSorted).toBe(true);
     });
 
     // TODO: implement when incidents are ready
