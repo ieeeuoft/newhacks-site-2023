@@ -12,7 +12,7 @@ import {
 } from "./SimpleOrderTables";
 import { waitFor } from "@testing-library/react";
 import { RootStore } from "slices/store";
-import { PendingTables } from "../../dashboard/ItemTable/ItemTable";
+import { PendingTables } from "dashboard/ItemTable/ItemTable";
 
 const mockOrdersInTable = mockPendingOrdersInTable.concat(mockCheckedOutOrdersInTable);
 
