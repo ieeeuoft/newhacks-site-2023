@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from hackathon_site.tests import SetupUserMixin
 from django.contrib.auth.models import Permission
+from django.db.models import Q
 
 
 from event.models import Profile, User, Team
@@ -146,6 +147,17 @@ class JoinTeamTestCase(SetupUserMixin, APITestCase):
         self.user.refresh_from_db()
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(old_team.pk, self.user.profile.team.pk)
+
+    def check_can_leave_cancelled_or_returned(self):
+        old_team = self.profile.team
+        sample_team = self._make_event_team(self_users=False, num_users=2)
+        response = self.client.post(self._build_view(sample_team.team_code))
+        self.user.refresh_from_db()
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["id"], self.user.profile.team.pk)
+        self.assertNotEqual(old_team.pk, self.user.profile.team.pk)
+        self.assertFalse(Team.objects.filter(team_code=old_team.team_code).exists())
 
     def check_can_leave_cancelled(self):
         old_team = self.profile.team
@@ -642,7 +654,7 @@ class CreateProfileViewTestCase(SetupUserMixin, APITestCase):
         data = response.json()
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
-            data[0], "User has not been accepted to participate in hackathon"
+            data[0], "User has not been accepted to participate in NewHacks"
         )
 
 
