@@ -314,7 +314,7 @@ DEFAULT_FROM_EMAIL = "hello@newhacks.ca"
 CONTACT_EMAIL = DEFAULT_FROM_EMAIL
 HSS_ADMIN_EMAIL = "hardware@newhacks.ca"
 
-REGISTRATION_OPEN_DATE = datetime(2023, 6, 5, 0, 0, 0, tzinfo=TZ_INFO)
+REGISTRATION_OPEN_DATE = datetime(2023, 9, 18, 0, 0, 0, tzinfo=TZ_INFO)
 REGISTRATION_CLOSE_DATE = datetime(2023, 10, 29, 23, 59, 0, tzinfo=TZ_INFO)
 EVENT_START_DATE = datetime(2023, 11, 4, 9, 0, 0, tzinfo=TZ_INFO)
 EVENT_END_DATE = datetime(2023, 11, 5, 17, 0, 0, tzinfo=TZ_INFO)
