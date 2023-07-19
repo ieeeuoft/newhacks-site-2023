@@ -16,8 +16,7 @@
 
                 {% if application is none %}
                     {% if not is_registration_open() %}
-                        <h2 class="formH2">Applications have closed</h2>
-                        <p>Unfortunately, the deadline to apply for {{ hackathon_name }} was {{ localtime(registration_close_date).strftime("%B %-d, %Y") }}.</p>
+                        <h2 class="formH2">Applications are not yet open</h2>
                         <br />
                         <p>If you have any questions or concerns, please <a href="mailto:{{ contact_email }}" class="hoverLink primaryText">contact us</a>.</p>
                     {% else %}
