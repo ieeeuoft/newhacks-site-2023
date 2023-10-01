@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.models import Group
 from django.urls import reverse
 from rest_framework import status
@@ -654,7 +655,8 @@ class CreateProfileViewTestCase(SetupUserMixin, APITestCase):
         data = response.json()
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(
-            data[0], "User has not been accepted to participate in NewHacks"
+            data[0],
+            f"User has not been accepted to participate in {settings.HACKATHON_NAME}",
         )
 
 
