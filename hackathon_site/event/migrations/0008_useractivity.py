@@ -9,20 +9,34 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('event', '0007_hss_test_users'),
+        ("event", "0007_hss_test_users"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='UserActivity',
+            name="UserActivity",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sign_in', models.DateTimeField(null=True)),
-                ('lunch1', models.DateTimeField(null=True)),
-                ('dinner1', models.DateTimeField(null=True)),
-                ('breakfast2', models.DateTimeField(null=True)),
-                ('lunch2', models.DateTimeField(null=True)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("sign_in", models.DateTimeField(null=True)),
+                ("lunch1", models.DateTimeField(null=True)),
+                ("dinner1", models.DateTimeField(null=True)),
+                ("breakfast2", models.DateTimeField(null=True)),
+                ("lunch2", models.DateTimeField(null=True)),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

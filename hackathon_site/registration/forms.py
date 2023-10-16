@@ -249,6 +249,7 @@ class JoinTeamForm(forms.Form):
 
         return team_code
 
+
 class SignInForm(forms.Form):
     email = forms.EmailField()
 

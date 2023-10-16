@@ -8,14 +8,13 @@ from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
-
 from django.conf import settings
 from django_filters import rest_framework as filters
 
 from rest_framework import generics, mixins
 from rest_framework.filters import SearchFilter
 
-
+from pprint import pprint
 from hackathon_site.utils import (
     is_registration_open,
     is_hackathon_happening,
@@ -126,6 +125,19 @@ class DashboardView(LoginRequiredMixin, FormView):
             review = self.request.user.application.review
 
             context["review"] = review
+            if settings.RSVP:
+                context[
+                    "rsvp_passed"
+                ] = _now().date() > review.decision_sent_date + timedelta(
+                    days=settings.RSVP_DAYS
+                )
+                rsvp_deadline = datetime.combine(
+                    review.decision_sent_date + timedelta(days=settings.RSVP_DAYS),
+                    datetime.max.time(),  # 11:59PM
+                )
+                context["rsvp_deadline"] = settings.TZ_INFO.localize(
+                    rsvp_deadline
+                ).strftime("%B %-d, %Y, %-I:%M %p %Z")
         else:
             context["review"] = None
 
@@ -145,6 +157,12 @@ class DashboardView(LoginRequiredMixin, FormView):
             context["status"] = "Application Complete"
         elif (
             hasattr(self.request.user.application, "review")
+            and self.request.user.application.review.status == "Accepted"
+            and self.request.user.application.rsvp is None
+        ):
+            context["status"] = "Accepted, awaiting RSVP"
+        elif (
+            hasattr(self.request.user.application, "review")
             and self.request.user.application.review.status == "Waitlisted"
         ):
             context["status"] = "Waitlisted"
@@ -153,6 +171,10 @@ class DashboardView(LoginRequiredMixin, FormView):
             and self.request.user.application.review.status == "Rejected"
         ):
             context["status"] = "Rejected"
+        elif self.request.user.application.rsvp:
+            context["status"] = "Will Attend (Accepted)"
+        elif not self.request.user.application.rsvp:
+            context["status"] = "Cannot Attend (Declined)"
         else:
             context["status"] = "Unknown"
 
@@ -188,6 +210,14 @@ class QRScannerView(LoginRequiredMixin, FormView):
         if isinstance(context["form"], SignInForm):
             context["sign_in_form"] = context["form"]
 
+        # Get the total number of users who have signed in in each event
+        # Find the all rows that the sign in event is not null
+        # Then count the number of rows for each event
+        context["sign_in_counts"] = {
+            event: UserActivity.objects.filter(**{f"{event}__isnull": False}).count()
+            for event in ["breakfast2", "dinner1", "lunch1", "lunch2", "sign_in"]
+        }
+
         return context
 
     def get_form(self, form_class=None):
@@ -203,22 +233,51 @@ class QRScannerView(LoginRequiredMixin, FormView):
         if isinstance(form, SignInForm):
             try:
                 user = User.objects.get(email__exact=form.cleaned_data["email"])
-                sign_in_event = get_curr_sign_in_time()
+                sign_in_event = get_curr_sign_in_time(False, True)
                 now = datetime.now().replace(tzinfo=settings.TZ_INFO)
+                application = Application.objects.get(user__exact=user)
 
                 try:
                     user_activity = UserActivity.objects.get(user__exact=user)
-                    setattr(user_activity, sign_in_event, now)
-                    user_activity.save()
+                    if getattr(user_activity, sign_in_event, None) is not None:
+                        messages.error(
+                            self.request,
+                            f'User {form.cleaned_data["email"]} has already signed in!',
+                        )
+                        return redirect(self.get_success_url())
+                    else:
+                        setattr(user_activity, sign_in_event, now)
+                        user_activity.save()
                 except UserActivity.DoesNotExist:
                     sign_in_obj = {}
                     sign_in_obj[sign_in_event] = now
                     UserActivity.objects.create(user=user, **sign_in_obj)
 
-                messages.success(
-                    self.request,
-                    f'User {form.cleaned_data["email"]} successfully signed in',
-                )
+                # Return the info on a new line
+                # TODO: use once these fields are added to Application Model
+                # if application.specific_dietary_requirement != "":
+                #     return_string = (
+                #         (user.first_name).capitalize()
+                #         + " successfully signed in.  👕T-shirt: "
+                #         + application.tshirt_size
+                #         + " 🍉 Dietary Restrictions: "
+                #         + application.dietary_restrictions
+                #         + " ⭐️Special Diet Requirement:"
+                #         + application.specific_dietary_requirement
+                #     )
+                # else:
+                #     return_string = (
+                #         (user.first_name).capitalize()
+                #         + " successfully signed in.  👕T-shirt: "
+                #         + application.tshirt_size
+                #         + " 🍉 Dietary Restrictions: "
+                #         + application.dietary_restrictions
+                #     )
+                return_string = (
+                    user.first_name
+                ).capitalize() + " successfully signed in."
+
+                messages.success(self.request, return_string)
             except NoEventOccurringException as e:
                 messages.info(self.request, str(e))
             except Exception as e:

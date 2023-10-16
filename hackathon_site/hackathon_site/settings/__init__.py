@@ -323,6 +323,8 @@ EVENT_END_DATE = datetime(2023, 11, 5, 17, 0, 0, tzinfo=TZ_INFO)
 HARDWARE_SIGN_OUT_START_DATE = datetime(2023, 10, 28, 23, 59, 0, tzinfo=TZ_INFO)
 HARDWARE_SIGN_OUT_END_DATE = EVENT_END_DATE
 
+RSVP_DAYS = 5
+
 # sign in times must be between EVENT_START_DATE and EVENT_END_DATE and in chronological order
 # the number of sign in times MUST MATCH the number of columns in UserActivityTable
 # TODO: modify sign in times when available
@@ -381,6 +383,7 @@ CHAT_ROOM = ("Discord", "https://discord.gg/BQg4Upq3pm")
 
 # Enable/Disable certain Features
 TEAMS = True
+RSVP = True
 
 # HSS Testing
 TEST_USER_GROUP = "HSS Test Users"

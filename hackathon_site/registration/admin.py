@@ -57,6 +57,7 @@ class ApplicationResource(resources.ModelResource):
             "email_agree",
             "resume_sharing",
             "review__status",
+            "rsvp",
             "created_at",
             "updated_at",
         )
@@ -84,6 +85,7 @@ class ApplicationResource(resources.ModelResource):
             "email_agree",
             "resume_sharing",
             "review__status",
+            "rsvp",
             "created_at",
             "updated_at",
         )
@@ -104,6 +106,7 @@ class ApplicationResource(resources.ModelResource):
             "study_level",
             "graduation_year",
             "review_status",
+            "rsvp",
             "program",
             "resume",
             "linkedin",
@@ -113,7 +116,6 @@ class ApplicationResource(resources.ModelResource):
             "logistics_agree",
             "email_agree",
             "resume_sharing",
-            "review__status",
             "created_at",
             "updated_at",
         ]
