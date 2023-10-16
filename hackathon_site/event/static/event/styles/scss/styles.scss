@@ -452,6 +452,7 @@ strong {
 
     &H3 {
         font-weight: normal;
+    }
 
     @include responsive(md-down) {
         &H1 {
