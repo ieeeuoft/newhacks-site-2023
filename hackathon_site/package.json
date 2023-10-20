@@ -16,5 +16,8 @@
   "prettier": {
     "printWidth": 88,
     "tabWidth": 4
+  },
+  "dependencies": {
+    "scss": "^0.2.4"
   }
 }

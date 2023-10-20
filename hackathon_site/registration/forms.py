@@ -121,6 +121,7 @@ class ApplicationForm(forms.ModelForm):
         model = Application
         fields = [
             "age",
+            "under_age",
             "pronouns",
             "ethnicity",
             "phone_number",
