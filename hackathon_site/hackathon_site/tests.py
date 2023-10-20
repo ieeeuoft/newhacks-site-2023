@@ -50,6 +50,7 @@ class SetupUserMixin:
 
         application_data = {
             "age": 19,
+            "under_age": False,
             "pronouns": "no-answer",
             "ethnicity": "no-answer",
             "phone_number": "1234567890",
