@@ -83,7 +83,7 @@ class Application(models.Model):
 
     # User Submitted Fields
     age = models.PositiveIntegerField(choices=AGE_CHOICES, null=False)
-    under_age = models.BooleanField(null=False)
+    under_age = models.BooleanField(null=False, default=False)
     pronouns = models.CharField(
         max_length=50, choices=PRONOUN_CHOICES, null=False, default=""
     )
