@@ -57,10 +57,7 @@ class HardwareSerializerTestCase(TestCase):
             team=team,
             request={"hardware": [{"id": 1, "quantity": 2}, {"id": 2, "quantity": 3}]},
         )
-        order_item_1 = OrderItem.objects.create(
-            order=order,
-            hardware=self.hardware,
-        )
+        order_item_1 = OrderItem.objects.create(order=order, hardware=self.hardware,)
 
         self.hardware.refresh_from_db()
         hardware_serializer = HardwareSerializer(self.hardware)
@@ -92,10 +89,7 @@ class HardwareSerializerTestCase(TestCase):
         order_item_1 = OrderItem.objects.create(
             order=order, hardware=self.hardware, part_returned_health="Healthy"
         )
-        order_item_2 = OrderItem.objects.create(
-            order=order,
-            hardware=self.hardware,
-        )
+        order_item_2 = OrderItem.objects.create(order=order, hardware=self.hardware,)
         self.hardware.refresh_from_db()
         hardware_serializer = HardwareSerializer(self.hardware)
 
@@ -142,14 +136,8 @@ class HardwareQuantityRemainingTestCase(TestCase):
             team=team,
             request={"hardware": [{"id": 1, "quantity": 2}]},
         )
-        order_item_1 = OrderItem.objects.create(
-            order=order,
-            hardware=self.hardware,
-        )
-        order_item_2 = OrderItem.objects.create(
-            order=order,
-            hardware=self.hardware,
-        )
+        order_item_1 = OrderItem.objects.create(order=order, hardware=self.hardware,)
+        order_item_2 = OrderItem.objects.create(order=order, hardware=self.hardware,)
         self.hardware.refresh_from_db()
         hardware_serializer = HardwareSerializer(self.hardware)
         self.assertEqual(hardware_serializer.data["quantity_remaining"], 2)
@@ -164,10 +152,7 @@ class HardwareQuantityRemainingTestCase(TestCase):
         order_item_1 = OrderItem.objects.create(
             order=order, hardware=self.hardware, part_returned_health="Healthy"
         )
-        order_item_2 = OrderItem.objects.create(
-            order=order,
-            hardware=self.hardware,
-        )
+        order_item_2 = OrderItem.objects.create(order=order, hardware=self.hardware,)
         self.hardware.refresh_from_db()
         hardware_serializer = HardwareSerializer(self.hardware)
         self.assertEqual(hardware_serializer.data["quantity_remaining"], 3)
@@ -183,8 +168,7 @@ class HardwareQuantityRemainingTestCase(TestCase):
             order=order, hardware=self.hardware, part_returned_health="Broken"
         )
         OrderItem.objects.create(
-            order=order,
-            hardware=self.hardware,
+            order=order, hardware=self.hardware,
         )
         self.hardware.refresh_from_db()
         hardware_serializer = HardwareSerializer(self.hardware)
@@ -197,14 +181,8 @@ class HardwareQuantityRemainingTestCase(TestCase):
             team=team,
             request={"hardware": [{"id": 1, "quantity": 2}, {"id": 2, "quantity": 3}]},
         )
-        order_item_1 = OrderItem.objects.create(
-            order=order,
-            hardware=self.hardware,
-        )
-        order_item_2 = OrderItem.objects.create(
-            order=order,
-            hardware=self.hardware,
-        )
+        order_item_1 = OrderItem.objects.create(order=order, hardware=self.hardware,)
+        order_item_2 = OrderItem.objects.create(order=order, hardware=self.hardware,)
         self.hardware.refresh_from_db()
         hardware_serializer = HardwareSerializer(self.hardware)
         self.assertEqual(hardware_serializer.data["quantity_remaining"], 4)
@@ -371,10 +349,7 @@ class OrderListSerializerTestCase(TestCase):
         item_1 = OrderItem.objects.create(
             order=order, hardware=self.hardware, part_returned_health="Healthy"
         )
-        item_2 = OrderItem.objects.create(
-            order=order,
-            hardware=self.other_hardware,
-        )
+        item_2 = OrderItem.objects.create(order=order, hardware=self.other_hardware,)
         self.hardware.refresh_from_db()
         self.other_hardware.refresh_from_db()
         order_serializer = OrderListSerializer(order).data

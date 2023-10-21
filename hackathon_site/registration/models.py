@@ -100,10 +100,7 @@ class Application(models.Model):
     )
     city = models.CharField(max_length=255, null=False)
     country = models.CharField(max_length=255, null=False)
-    school = models.CharField(
-        max_length=255,
-        null=False,
-    )
+    school = models.CharField(max_length=255, null=False,)
     study_level = models.CharField(
         max_length=50,
         help_text="Level of Study",
