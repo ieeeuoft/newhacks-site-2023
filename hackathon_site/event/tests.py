@@ -243,9 +243,9 @@ class DashboardTestCase(SetupUserMixin, TestCase):
         mock_is_registration_open.return_value = False
         self._login()
         response = self.client.get(self.view)
-#         self.assertContains(response, "Applications have closed")
-#         self.assertNotContains(response, "Complete your application")
-#         self.assertNotContains(response, "Apply as a team")
+        self.assertContains(response, "Applications have closed")
+        self.assertNotContains(response, "Complete your application")
+        self.assertNotContains(response, "Apply as a team")
 
     @patch("event.views.is_registration_open")
     def test_shows_submitted_application_after_applications_closed(
@@ -255,8 +255,8 @@ class DashboardTestCase(SetupUserMixin, TestCase):
         self._login()
         self._apply()
         response = self.client.get(self.view)
-#         self.assertContains(response, "Your application has been submitted!")
-#         self.assertNotContains(response, "Spots remaining on your team")
+        self.assertContains(response, "Your application has been submitted!")
+        self.assertNotContains(response, "Spots remaining on your team")
 
 
 class LogInViewTestCase(SetupUserMixin, TestCase):
