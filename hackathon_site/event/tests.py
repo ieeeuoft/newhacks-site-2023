@@ -436,7 +436,8 @@ class UserSerializerTestCase(TestCase):
         user.groups.add(group)
 
         Profile.objects.create(
-            user=user, team=team,
+            user=user,
+            team=team,
         )
 
         user_serialized = UserSerializer(user).data
@@ -462,7 +463,8 @@ class UserInProfileSerializerTestCase(TestCase):
         user = User.objects.create()
 
         Profile.objects.create(
-            user=user, team=team,
+            user=user,
+            team=team,
         )
 
         user_serialized = UserInProfileSerializer(user).data

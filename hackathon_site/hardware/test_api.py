@@ -371,11 +371,13 @@ class IncidentListViewTestCase(SetupUserMixin, APITestCase):
             picture="/picture/location/other",
         )
         self.order_item = OrderItem.objects.create(
-            order=self.order, hardware=self.hardware,
+            order=self.order,
+            hardware=self.hardware,
         )
 
         self.order_item2 = OrderItem.objects.create(
-            order=self.order, hardware=self.other_hardware,
+            order=self.order,
+            hardware=self.other_hardware,
         )
 
         self.incident = Incident.objects.create(
@@ -492,10 +494,12 @@ class OrderListViewGetTestCase(SetupUserMixin, APITestCase):
             picture="/picture/location/other",
         )
         OrderItem.objects.create(
-            order=self.order, hardware=self.hardware,
+            order=self.order,
+            hardware=self.hardware,
         )
         OrderItem.objects.create(
-            order=self.order, hardware=self.other_hardware,
+            order=self.order,
+            hardware=self.other_hardware,
         )
         self.order_2 = Order.objects.create(
             status="Submitted",
@@ -503,10 +507,12 @@ class OrderListViewGetTestCase(SetupUserMixin, APITestCase):
             request={"hardware": [{"id": 1, "quantity": 2}, {"id": 2, "quantity": 3}]},
         )
         OrderItem.objects.create(
-            order=self.order_2, hardware=self.hardware,
+            order=self.order_2,
+            hardware=self.hardware,
         )
         OrderItem.objects.create(
-            order=self.order_2, hardware=self.other_hardware,
+            order=self.order_2,
+            hardware=self.other_hardware,
         )
         self.order_3 = Order.objects.create(
             status="Cancelled",
@@ -514,7 +520,8 @@ class OrderListViewGetTestCase(SetupUserMixin, APITestCase):
             request={"hardware": [{"id": 1, "quantity": 2}, {"id": 2, "quantity": 3}]},
         )
         OrderItem.objects.create(
-            order=self.order_3, hardware=self.hardware,
+            order=self.order_3,
+            hardware=self.hardware,
         )
         self.order_4 = Order.objects.create(
             status="Submitted",
@@ -522,7 +529,8 @@ class OrderListViewGetTestCase(SetupUserMixin, APITestCase):
             request={"hardware": [{"id": 1, "quantity": 2}, {"id": 2, "quantity": 3}]},
         )
         OrderItem.objects.create(
-            order=self.order_4, hardware=self.hardware,
+            order=self.order_4,
+            hardware=self.hardware,
         )
         self.view_permissions = Permission.objects.filter(
             content_type__app_label="hardware", codename="view_order"
@@ -683,10 +691,12 @@ class OrderItemListViewGetTestCase(SetupUserMixin, APITestCase):
             picture="/picture/location/other",
         )
         self.order_item_1 = OrderItem.objects.create(
-            order=self.order, hardware=self.hardware,
+            order=self.order,
+            hardware=self.hardware,
         )
         self.order_item_2 = OrderItem.objects.create(
-            order=self.order, hardware=self.other_hardware,
+            order=self.order,
+            hardware=self.other_hardware,
         )
         self.order_2 = Order.objects.create(
             status="Submitted",
@@ -694,10 +704,12 @@ class OrderItemListViewGetTestCase(SetupUserMixin, APITestCase):
             request={"hardware": [{"id": 1, "quantity": 2}, {"id": 2, "quantity": 3}]},
         )
         self.order_item_3 = OrderItem.objects.create(
-            order=self.order_2, hardware=self.hardware,
+            order=self.order_2,
+            hardware=self.hardware,
         )
         self.order_item_4 = OrderItem.objects.create(
-            order=self.order_2, hardware=self.other_hardware,
+            order=self.order_2,
+            hardware=self.other_hardware,
         )
         self.order_3 = Order.objects.create(
             status="Cancelled",
@@ -705,7 +717,8 @@ class OrderItemListViewGetTestCase(SetupUserMixin, APITestCase):
             request={"hardware": [{"id": 1, "quantity": 2}, {"id": 2, "quantity": 3}]},
         )
         self.order_item_5 = OrderItem.objects.create(
-            order=self.order_3, hardware=self.hardware,
+            order=self.order_3,
+            hardware=self.hardware,
         )
         self.order_4 = Order.objects.create(
             status="Submitted",
@@ -713,7 +726,8 @@ class OrderItemListViewGetTestCase(SetupUserMixin, APITestCase):
             request={"hardware": [{"id": 1, "quantity": 2}, {"id": 2, "quantity": 3}]},
         )
         self.order_item_6 = OrderItem.objects.create(
-            order=self.order_4, hardware=self.hardware,
+            order=self.order_4,
+            hardware=self.hardware,
         )
         self.view_permissions = Permission.objects.filter(
             content_type__app_label="hardware", codename="view_orderitem"
@@ -830,7 +844,8 @@ class IncidentListViewPostTestCase(SetupUserMixin, APITestCase):
         )
 
         self.order_item = OrderItem.objects.create(
-            order=self.order, hardware=self.hardware,
+            order=self.order,
+            hardware=self.hardware,
         )
 
         self.request_data = {
@@ -888,7 +903,8 @@ class IncidentDetailViewGetTestCase(SetupUserMixin, APITestCase):
         )
 
         self.order_item = OrderItem.objects.create(
-            order=self.order, hardware=self.hardware,
+            order=self.order,
+            hardware=self.hardware,
         )
 
         self.incident = Incident.objects.create(
@@ -995,7 +1011,11 @@ class OrderListViewPostTestCase(SetupUserMixin, APITestCase):
         self.order = Order.objects.create(
             status="Cart",
             team=self.team,
-            request={"hardware": [{"id": 1, "quantity": 2},]},
+            request={
+                "hardware": [
+                    {"id": 1, "quantity": 2},
+                ]
+            },
         )
 
         self.category1 = Category.objects.create(name="category1", max_per_team=4)
@@ -1914,7 +1934,8 @@ class OrderItemReturnViewTestCase(SetupUserMixin, APITestCase):
         )
 
         self.order_item = OrderItem.objects.create(
-            order=self.order, hardware=self.hardware,
+            order=self.order,
+            hardware=self.hardware,
         )
 
         self.request_data = {
