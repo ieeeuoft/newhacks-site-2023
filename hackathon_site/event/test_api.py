@@ -160,17 +160,6 @@ class JoinTeamTestCase(SetupUserMixin, APITestCase):
         self.assertNotEqual(old_team.pk, self.user.profile.team.pk)
         self.assertFalse(Team.objects.filter(team_code=old_team.team_code).exists())
 
-    def check_can_leave_cancelled(self):
-        old_team = self.profile.team
-        sample_team = self._make_event_team(self_users=False, num_users=2)
-        response = self.client.post(self._build_view(sample_team.team_code))
-        self.user.refresh_from_db()
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data["id"], self.user.profile.team.pk)
-        self.assertNotEqual(old_team.pk, self.user.profile.team.pk)
-        self.assertFalse(Team.objects.filter(team_code=old_team.team_code).exists())
-
     def test_cannot_leave_with_order(self):
         """
         check user cannot join another team when there
@@ -571,7 +560,7 @@ class CreateProfileViewTestCase(SetupUserMixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_user_can_have_profile(self):
-        self._review(application=self._apply_as_user(self.user))
+        self._review(application=self._apply_as_user(self.user, rsvp=True))
         self._login()
         response = self.client.post(self.view, self.request_body)
         data = response.json()
@@ -588,7 +577,7 @@ class CreateProfileViewTestCase(SetupUserMixin, APITestCase):
         self.assertEqual(self.expected_response, data)
 
     def test_not_including_required_fields(self):
-        self._review(application=self._apply_as_user(self.user))
+        self._review(application=self._apply_as_user(self.user, rsvp=True))
         self._login()
         response = self.client.post(self.view, {"e_signature": "user signature",})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -596,7 +585,7 @@ class CreateProfileViewTestCase(SetupUserMixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_acknowledge_rules_is_false(self):
-        self._review(application=self._apply_as_user(self.user))
+        self._review(application=self._apply_as_user(self.user, rsvp=True))
         self._login()
         response = self.client.post(
             self.view, {"e_signature": "user signature", "acknowledge_rules": False,},
@@ -608,7 +597,7 @@ class CreateProfileViewTestCase(SetupUserMixin, APITestCase):
         )
 
     def test_e_signature_is_empty(self):
-        self._review(application=self._apply_as_user(self.user))
+        self._review(application=self._apply_as_user(self.user, rsvp=True))
         self._login()
         response = self.client.post(
             self.view, {"e_signature": "", "acknowledge_rules": True,},
@@ -637,8 +626,33 @@ class CreateProfileViewTestCase(SetupUserMixin, APITestCase):
             "User has not completed their application to the hackathon. Please do so to access the Hardware Signout Site",
         )
 
-    def test_user_has_not_been_reviewed(self):
+    def test_user_has_not_rsvp(self):
         self._apply_as_user(self.user)
+        self._login()
+        response = self.client.post(self.view, self.request_body)
+        data = response.json()
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            data[0],
+            "User has not RSVP'd to the hackathon. Please RSVP to access the Hardware Signout Site",
+        )
+
+    def test_user_has_not_been_reviewed(self):
+        self._apply_as_user(self.user, rsvp=True)
+        self._login()
+        response = self.client.post(self.view, self.request_body)
+        data = response.json()
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            data[0],
+            "User has not been reviewed yet, Hardware Signout Site cannot be accessed until reviewed",
+        )
+
+    def test_user_has_been_reviewed_but_not_sent(self):
+        self._review(
+            application=self._apply_as_user(self.user, rsvp=True),
+            decision_sent_date=None,
+        )
         self._login()
         response = self.client.post(self.view, self.request_body)
         data = response.json()
@@ -649,7 +663,9 @@ class CreateProfileViewTestCase(SetupUserMixin, APITestCase):
         )
 
     def test_user_review_rejected(self):
-        self._review(application=self._apply_as_user(self.user), status="Rejected")
+        self._review(
+            application=self._apply_as_user(self.user, rsvp=True), status="Rejected"
+        )
         self._login()
         response = self.client.post(self.view, self.request_body)
         data = response.json()
@@ -862,8 +878,10 @@ class EventTeamDetailViewTestCase(SetupUserMixin, APITestCase):
 
         self.permissions = Permission.objects.filter(
             Q(content_type__app_label="event", codename="view_team")
+            | Q(content_type__app_label="event", codename="change_team")
             | Q(content_type__app_label="event", codename="delete_team"),
         )
+
         super().setUp()
 
     def _build_view(self, team_code):
@@ -915,6 +933,19 @@ class EventTeamDetailViewTestCase(SetupUserMixin, APITestCase):
         self._login(self.permissions)
         response = self.client.delete(self._build_view(self.team3.team_code))
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_team_patch_not_login(self):
+        response = self.client.patch(
+            self._build_view("56ABD"), data={"project_description": "New description"}
+        )
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_team_patch_no_permissions(self):
+        self._login()
+        response = self.client.patch(
+            self._build_view("56ABD"), data={"project_description": "New description"}
+        )
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 
 class TeamOrderDetailViewTestCase(SetupUserMixin, APITestCase):
