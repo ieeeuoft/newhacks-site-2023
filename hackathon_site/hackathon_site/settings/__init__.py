@@ -112,6 +112,7 @@ INSTALLED_APPS = [
     "django_filters",
     "client_side_image_cropping",
     "captcha",
+    "qrcode",
     "dashboard",
     "registration",
     "event",
@@ -166,6 +167,7 @@ LOGIN_URL = reverse_lazy("event:login")
 LOGIN_REDIRECT_URL = reverse_lazy("event:dashboard")
 LOGOUT_REDIRECT_URL = reverse_lazy("event:index")
 
+MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -321,36 +323,7 @@ EVENT_END_DATE = datetime(2023, 11, 5, 17, 0, 0, tzinfo=TZ_INFO)
 HARDWARE_SIGN_OUT_START_DATE = datetime(2023, 10, 28, 23, 59, 0, tzinfo=TZ_INFO)
 HARDWARE_SIGN_OUT_END_DATE = EVENT_END_DATE
 
-# Registration user requirements
-MINIMUM_AGE = 18
-
-# Registration settings
-ACCOUNT_ACTIVATION_DAYS = 7
-
-# Team requirements
-MIN_MEMBERS = 2
-MAX_MEMBERS = 4
-
-# The time at which waitlisted people will start being accepted into
-# the event. This usually happens an hour or two after the start of
-# the event.
-WAITLISTED_ACCEPTANCE_START_TIME = EVENT_START_DATE + timedelta(hours=1)
-
-# The date at which applications will be reviewed at the latest.
-FINAL_REVIEW_RESPONSE_DATE = REGISTRATION_CLOSE_DATE + timedelta(days=7)
-
-# Links
-PARTICIPANT_PACKAGE_LINK = "https://docs.google.com/document/d/1JvPlvxwMze9dqjv_5PIUVu8bHTiEZz8AtviHRMEsWQQ/edit?usp=sharing"
-
-# Note this is in the form (chat_room_name, chat_room_link)
-# Chat room name is such as the following: Slack, Discord
-CHAT_ROOM = ("Discord", "https://discord.gg/BQg4Upq3pm")
-
-# Enable/Disable certain Features
-TEAMS = True
-
-# HSS Testing
-TEST_USER_GROUP = "HSS Test Users"
+RSVP_DAYS = 5
 
 # sign in times must be between EVENT_START_DATE and EVENT_END_DATE and in chronological order
 # the number of sign in times MUST MATCH the number of columns in UserActivityTable
@@ -382,3 +355,35 @@ SIGN_IN_TIMES = [
         "time": datetime(2023, 2, 19, 13, 0, 0, tzinfo=TZ_INFO),  # Oct 11th @ 12pm
     },
 ]
+
+# Registration user requirements
+MINIMUM_AGE = 18
+
+# Registration settings
+ACCOUNT_ACTIVATION_DAYS = 7
+
+# Team requirements
+MIN_MEMBERS = 2
+MAX_MEMBERS = 4
+
+# The time at which waitlisted people will start being accepted into
+# the event. This usually happens an hour or two after the start of
+# the event.
+WAITLISTED_ACCEPTANCE_START_TIME = EVENT_START_DATE + timedelta(hours=1)
+
+# The date at which applications will be reviewed at the latest.
+FINAL_REVIEW_RESPONSE_DATE = REGISTRATION_CLOSE_DATE + timedelta(days=7)
+
+# Links
+PARTICIPANT_PACKAGE_LINK = "https://docs.google.com/document/d/1JvPlvxwMze9dqjv_5PIUVu8bHTiEZz8AtviHRMEsWQQ/edit?usp=sharing"
+
+# Note this is in the form (chat_room_name, chat_room_link)
+# Chat room name is such as the following: Slack, Discord
+CHAT_ROOM = ("Discord", "https://discord.gg/BQg4Upq3pm")
+
+# Enable/Disable certain Features
+TEAMS = True
+RSVP = True
+
+# HSS Testing
+TEST_USER_GROUP = "HSS Test Users"
