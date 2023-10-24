@@ -45,6 +45,27 @@
     </div>
 {% endmacro %}
 
+{% macro render_checkbox_field_with_text(field, text, size="s12") %}
+    <div class="row col {{ size }}" style="padding-top: 0.5em; padding-bottom: 0.5em;">
+        <label>
+            <input
+                type="checkbox"
+                class="filled-in"
+                {% if field.value() %}checked="checked" {% endif %}
+                name="{{ field.name }}"
+                id="{{ field.id_for_label }}">
+            <span style="color: black;">{{ field.help_text|safe }} {{ text }}</span>
+        </label>
+        {% if field.errors %}
+            <span class="formFieldError col s12">
+            {% for error in field.errors %}
+                {{ error }}
+            {% endfor %}
+            </span>
+        {% endif %}
+    </div>
+{% endmacro %}
+
 {% block body %}
 <div class="ombreBackgroundDark3">
     <div class="container">
