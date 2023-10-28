@@ -1,11 +1,103 @@
 {% set dashboard_url=request.build_absolute_uri(url("event:dashboard")) %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>{{ hackathon_name }} Acceptance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sen&display=swap" rel="stylesheet">
 
-<p>Hello {{ user.first_name|striptags }},</p>
 
-<p>The {{ hackathon_name }} team has reviewed your application, and we’re excited to welcome you to {{ hackathon_name }}!</p>
+    <style type="text/css"unselectable="on">
+        a:link,
+        a:visited{
+            font-family: 'Sen', sans-serif;
+            font-weight: bold;
+            color: orange;
+            text-decoration:none;
+        }
+        a:hover{
+            color:#f826a8;
+            text-decoration:underline;
+            text-decoration:none;
+        }
+        a:active{
+            color: orange;
+        }
+    </style>
 
-<p>Read our <a href="{{ participant_package_link }}">participant package</a> for all the info regarding the event, and join our <a href="{{ chat_room_link }}">{{ chat_room_name }}</a>. Stay tuned for more updates regarding detailed event logistics, and we hope to see you soon! If you have questions, read the FAQ on your <a href="{{ dashboard_url }}">dashboard</a> or feel free to contact us. </p>
+</head>
+<body style="margin: 0; padding: 0;">
 
-<p>Happy hacking,<br>
-The {{ hackathon_name }} Team
-</p>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td style="padding: 10px 0 30px 0;">
+            <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border: 1px solid #cccccc; border-collapse: collapse;" bgcolor="#EFFAFF">
+                <tr>
+                    <td align="center" style="padding: 20px 0 20px 0; color: #153643; font-size: 28px; font-weight: bold; font-family: Arial, sans-serif;">
+
+                        <img alt="ieee-hackathon" width="130" height="auto" style="display: block; object-fit: contain;" src="{{ static('static/ieee.svg') }}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 0px 30px 40px 30px;">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td style="color: #153643; font-family: 'Sen', sans-serif; font-size: 24px; text-align: center;">
+                                    <b>
+                                        Congratulations {{ user.first_name|striptags }}!</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 20px 0 30px 0; color: #153643; font-family: 'Sen', sans-serif; font-size: 16px; line-height: 20px;">
+                                    The {{ hackathon_name }} team has reviewed your application, and we’re excited to welcome you to {{ hackathon_name }}!
+                                    <br><br>
+                                    <b>If you have already RSVP'd please ignore the following.</b>
+                                    <br><br>
+                                    To confirm your attendance, visit your dashboard to RSVP by February 16th, 2023 otherwise your spot will be given to other applicants. Alternatively, you can press the "Cannot attend" button.
+                                    <br><br>
+                                    <p>Read our <a href="{{ participant_package_link }}">participant package</a> for all the info regarding the event, and join our <a href="{{ chat_room_link }}">{{ chat_room_name }}</a>. Stay tuned for more updates regarding detailed event logistics, and we hope to see you soon! If you have questions, read the FAQ on your <a href="{{ dashboard_url }}">dashboard</a> or feel free to contact us. </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: #153643; font-family: 'Sen', sans-serif; font-size: 17px; padding: 0;">
+                                    <br><br>
+                                    Happy Hacking,
+                                    <br>
+                                    The {{ hackathon_name }} Team
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor="#F6B94A" style="padding: 15px 30px 20px 15px;">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td style="color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;" width="75%">
+                                    {{ hackathon_name }} | IEEE UofT | 2023
+                                </td>
+                                <td align="right" width="25%">
+                                    <table border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; padding: 0px 0px 0px 0px;">
+                                                <a href="https://ieee.utoronto.ca" style="color: #ffffff;">
+                                                    <img alt="ieee-hackathon" width="130" height="auto" style="display: block;" border="0" src="{{ static('static/newhacks.svg') }}">
+                                                </a>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
