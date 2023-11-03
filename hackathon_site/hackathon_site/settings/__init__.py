@@ -342,17 +342,17 @@ SIGN_IN_TIMES = [
     {
         "name": "dinner1",
         "description": "Dinner Day 1",
-        "time": datetime(2023, 11, 4, 18, 30, 0, tzinfo=TZ_INFO),  # Nov 4th @ 6:30pm
+        "time": datetime(2023, 11, 4, 18, 0, 0, tzinfo=TZ_INFO),  # Nov 4th @ 6pm
     },
     {
         "name": "breakfast2",
         "description": "Breakfast Day 2",
-        "time": datetime(2023, 11, 5, 8, 15, 0, tzinfo=TZ_INFO),  # Nov 5th @ 8:15am
+        "time": datetime(2023, 11, 5, 8, 0, 0, tzinfo=TZ_INFO),  # Nov 5th @ 8am
     },
     {
         "name": "lunch2",
         "description": "Lunch Day 2",
-        "time": datetime(2023, 11, 5, 12, 0, 0, tzinfo=TZ_INFO),  # Nov 5th @ 12pm
+        "time": datetime(2023, 11, 5, 11, 45, 0, tzinfo=TZ_INFO),  # Nov 5th @ 11:45pm
     },
 ]
 
