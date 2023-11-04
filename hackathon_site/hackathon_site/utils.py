@@ -48,7 +48,7 @@ def get_curr_sign_in_time(use_description=False, return_exception=False):
 
 # assumes interval won't overlap between different months or years
 def get_sign_in_interval(time):
-    start_interval = time - relativedelta(hours=1)
+    start_interval = time - relativedelta(hours=2)
     end_interval = time + relativedelta(hours=3)
 
     if start_interval.day == end_interval.day:
